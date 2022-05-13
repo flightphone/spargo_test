@@ -1,4 +1,4 @@
---товары
+--С‚РѕРІР°СЂС‹
 create table article
 (ar_id int identity(1,1),
  ar_name nvarchar(256),
@@ -6,7 +6,7 @@ create table article
  )
 go	 
  
- --аптеки
+ --Р°РїС‚РµРєРё
 create table pharmacy
 	(ph_id int identity(1,1),
 	ph_name nvarchar(256),
@@ -16,7 +16,7 @@ create table pharmacy
 	)
 go
   
---склады
+--СЃРєР»Р°РґС‹
 create table stock
 	(st_id int identity(1,1),
 	st_ph int not null,
@@ -26,7 +26,7 @@ create table stock
 	)
 go
    
---партии   
+--РїР°СЂС‚РёРё   
 create table batch
    (bt_id int identity(1,1),
     bt_ar int not null,
@@ -38,7 +38,7 @@ create table batch
     )
 go    
 
---партии, представление
+--РїР°СЂС‚РёРё, РїСЂРµРґСЃС‚Р°РІР»РµРЅРёРµ
 create view v_batch
 as
 	select
@@ -55,7 +55,7 @@ as
 
 go
     
---количество товаров в аптеке    
+--РєРѕР»РёС‡РµСЃС‚РІРѕ С‚РѕРІР°СЂРѕРІ РІ Р°РїС‚РµРєРµ    
 create view v_article_total
 as    
 	select
@@ -71,7 +71,7 @@ as
 	s.st_ph
 go
 
---добавление товара
+--РґРѕР±Р°РІР»РµРЅРёРµ С‚РѕРІР°СЂР°
 create procedure p_article_add 
 	@ar_name nvarchar(256)
 as
@@ -81,7 +81,7 @@ as
 go		
 
 
---удаление товара
+--СѓРґР°Р»РµРЅРёРµ С‚РѕРІР°СЂР°
 create procedure p_article_del
 	@ar_id int
 as
@@ -89,7 +89,7 @@ as
 	delete from article where ar_id = @ar_id
 go	 		 
 
---добавление аптеки
+--РґРѕР±Р°РІР»РµРЅРёРµ Р°РїС‚РµРєРё
 create procedure p_pharmacy_add
 	@ph_name nvarchar(256),
 	@ph_address nvarchar(256),
@@ -101,7 +101,7 @@ as
 go	
 
 
---удаление аптеки
+--СѓРґР°Р»РµРЅРёРµ Р°РїС‚РµРєРё
 create procedure p_pharmacy_del
 	@ph_id int
 as
