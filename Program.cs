@@ -86,15 +86,13 @@ namespace spargo_test
                     string tablename = args[1];
                     if (views.IndexOf(tablename) == -1)
                     {
-                        Console.WriteLine("Ошибка: Недоустимое имя объекта");
-                        return;
+                        throw new Exception("Недоустимое имя объекта");
                     }
                     spargo.select(tablename);
                     return;
                 }
 
                 throw new Exception("Неизвестная комманда");
-
             }
             catch (Exception e)
             {
@@ -104,27 +102,33 @@ namespace spargo_test
 
         static void help()
         {
-            Console.WriteLine("Команды:");
-            Console.WriteLine("select [article/pharmacy/stock/batch/v_batch/v_article_total]");
-            Console.WriteLine("");
-            Console.WriteLine("insert article [ar_name]");
-            Console.WriteLine("insert pharmacy [ph_name] [ph_address] [ph_phone]");
-            Console.WriteLine("insert stock [st_ph] [st_name]");
-            Console.WriteLine("insert batch [bt_ar] [bt_st] [bt_num]");
 
-            Console.WriteLine("delete article [ar_id]");
-            Console.WriteLine("delete pharmacy [ph_id]");
-            Console.WriteLine("delete stock [st_id]");
-            Console.WriteLine("delete batch [bt_id]");
+            Console.WriteLine(@"Команды:
 
-            Console.WriteLine("");
-            Console.WriteLine("total articles [ph_id]");
-            Console.WriteLine("");
-            Console.WriteLine("Описание полей:");
-            Console.WriteLine("[ph_id], [st_ph] - id аптеки (pharmacy)");
-            Console.WriteLine("[ar_id], [bt_ar] - id товара (article)");
-            Console.WriteLine("[st_id], [bt_st] - id склада (stock)");
-            Console.WriteLine("[bt_id] - id партии  (batch)");
+Вывод на печать таблиц:
+select [article/pharmacy/stock/batch/v_batch/v_article_total]
+
+Добавление:            
+insert article [ar_name]
+insert pharmacy [ph_name] [ph_address] [ph_phone]
+insert stock [st_ph] [st_name]
+insert batch [bt_ar] [bt_st] [bt_num]
+
+Удаление:
+delete article [ar_id]
+delete pharmacy [ph_id]
+delete stock [st_id]
+delete batch [bt_id]
+
+Товары в аптеке:
+total article [ph_id]
+
+Описание полей:
+[ph_id], [st_ph] - id аптеки (pharmacy)
+[ar_id], [bt_ar] - id товара (article)
+[st_id], [bt_st] - id склада (stock)
+[bt_id] - id партии  (batch)");
+
             return;
         }
     }
