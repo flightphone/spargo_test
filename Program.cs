@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Data;
 using System.Collections.Generic;
+using Microsoft.Extensions.Configuration;
+
 
 namespace spargo_test
 {
@@ -8,9 +10,11 @@ namespace spargo_test
     {
         static void Main(string[] args)
         {
-            //=================Строка подключения к базе в коде, нужно изменить================    
-            Spargo.connect = @"data source=localhost\SQLEXPRESS8;User ID=sa;Password=aA12345678;database=spargo_test";
-            //=================Строка подключения к базе в коде, нужно изменить================
+            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", false, true);
+            IConfigurationRoot root = builder.Build();
+            //=================Строка подключения к базе в файле appsettings.json===============    
+            Spargo.connect = root["connect"];
+            //=================Строка подключения к базе в файле appsettings.json===============
             if (args.Length < 2)
             {
                 help();
@@ -38,7 +42,7 @@ namespace spargo_test
                 {
                     if (!procedures.ContainsKey(proc_name))
                     {
-                        throw new Exception("Недоустимое имя объекта");
+                        throw new Exception("Недопустимое имя объекта");
                     }
                     Dictionary<string, object> result = new Dictionary<string, object>();
                     int i = 2;
@@ -86,7 +90,7 @@ namespace spargo_test
                     string tablename = args[1];
                     if (views.IndexOf(tablename) == -1)
                     {
-                        throw new Exception("Недоустимое имя объекта");
+                        throw new Exception("Недопустимое имя объекта");
                     }
                     spargo.select(tablename);
                     return;
